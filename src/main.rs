@@ -57,7 +57,25 @@ impl BinaryTree {
         self.size += 1;
     }
 
-    fn search(&self, root: &Option<Box<Node>>, value: i32) {}
+    fn search(&self, value: i32) -> Option<Box<Node>> {
+        match &self.root {
+            None => return None,
+            Some(node) => {
+                let mut current = node;
+                loop {
+                    println!("{} ", &current.data);
+
+                    if value < current.data {
+                        current = current.left.as_ref().unwrap();
+                    } else if value > current.data {
+                        current = current.right.as_ref().unwrap();
+                    } else {
+                        return Some(current.clone());
+                    }
+                }
+            }
+        }
+    }
 
     fn inorder_traversal(&self, root: &Option<Box<Node>>) {
         match &root {
@@ -78,6 +96,8 @@ fn main() {
     for i in data {
         binary_tree.insert(i);
     }
-    println!("{:#?}", binary_tree);
-    binary_tree.inorder_traversal(&binary_tree.root);
+    //println!("{:#?}", binary_tree);
+    //binary_tree.inorder_traversal(&binary_tree.root);
+    let node = binary_tree.search(200);
+    println!("{:#?}", node);
 }
